@@ -1,0 +1,135 @@
+//***** Create USER *******************
+API : http://localhost:8000/api/registerUser
+METHOD : POST
+Parameter :
+{
+	"name" : "sagar",
+	"username" : "sagar3",
+   	"password" : "sagar3",
+   	"email" : "chaudharisagard@gmail.com",
+   	"address" : {
+   		"fullAddress"  :"BTM, Bangalore"
+   	},
+   	"contactNumbers" : {
+   		"mobile" : "8880191315"
+   	}
+
+}
+
+//***** LOGIN USER *******************
+API : http://localhost:8000/api/login
+METHOD : POST
+Parameter :
+{
+	"username" : "sagar3",
+   	"password" : "sagar3"
+}
+
+
+//**************************************
+API : http://localhost:8000/api/entityRestaurantsAction
+Metohd : POST
+Parameter :
+{
+	"action" : "NEW",
+	"data" : {
+    "name": "sagar Restro",
+    "email" : "chaudharisagard@gmail.com",
+    "address" :{
+        "fullAddress" : "BTM,Bangalore",
+        "city" : "Bangalore",
+        "pincode" :  "560047"
+    },
+    "status" : "NEW",
+    "contactNumbers" : {
+        "mobile" : "8880191315",
+        "landLine" :  "01234567890"
+    },
+    "workingHours" :{
+        "open" : "11am",
+        "close" : "11pm"
+    },
+    "images" : [ "http://res.cloudinary.com/mahasagar/image/upload/v1505152165/h2_a0rqw4.jpg"],
+    "ownerId" : "59b36c0f810f134d307beeec",
+    "ownerName" : "Sagar"
+  }
+}
+
+// Add NEW TABLE *************************
+API : http://localhost:8000/api/tableActions
+METHOD : POST
+{
+	"action" : "NEW",
+	"data" : {
+    "restaurantId" : "59b6cdafc584b82305935fd5",
+    "tableNo" : "A2",
+    "capacity" : 4,
+    "availability" : "FREE"
+	}
+}
+
+//get Booking by range***********************************
+API : http://localhost:8000/api/bookingDetails
+METHOD : POST
+{
+	"restaurantId" : "59b6cdafc584b82305935fd5",
+    "bookingStartTime" : "2017-09-11T15:53:51.402Z",
+    "bookingEndTime" : "2017-09-11T20:53:51.402Z"
+}
+
+
+//search Restaurants ****************************************
+
+API : http://localhost:8000/api/searchRestaurants
+METHOD : POST
+{
+	"name" : "sagar",
+	"location" : "Bangalore",
+	"cuisines" : ""
+}
+
+//search Table *******************************************
+API : http://localhost:8000/api/searchTable
+METHOD : POST
+{
+	"restaurantId" : "59b6cdafc584b82305935fd5",
+	"capacity" : 5,
+	"availability" : "FREE"
+}
+
+//Book a Table ******************************
+API : http://localhost:8000/api/bookingTable
+METHOD : POST
+Parameter :
+{
+	"restaurantId" : "59b6cdafc584b82305935fd5",
+	"tableNo" : "A1",
+	"availability" : "RESERVED",
+	"userId" :  "59b36c0f810f134d307beeec",
+	"userName" :  "Sai",
+    "email" :  "sai@gmail.com",
+    "mobile" : "1234567890",
+    "bookingStartTime" : "2017-09-11T17:53:51.402Z",
+    "bookingEndTime" : "2017-09-11T19:53:51.402Z"
+}
+
+//Write Review **************************************
+API : http://localhost:8000/api/writeReview
+METHOD : POST
+{
+	"restaurantId" : "59b6cdafc584b82305935fd5",
+    "userId" : "59b36c0f810f134d307beeec",
+    "reviewText" : "Awesome",
+    "reviewerName" : "sagar",
+    "rating" : 8
+}
+
+//Add menu **********************************************
+http://localhost:8000/api/menuAction
+Method : POST
+{
+	"restaurantID" : "59b6cdafc584b82305935fd5",
+	"dishName" :  "vada pav",
+    "MRP" : "20",
+    "description" :  "welcome"
+}
