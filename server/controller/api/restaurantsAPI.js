@@ -3,6 +3,7 @@
  */
 
 var Restaurants = require('../../model/Restaurants');
+var _ = require('lodash');
 
 function entityRestaurantsAction(req,res){
     console.log('req',req.body);
@@ -46,8 +47,11 @@ function  searchRestaurants(req,res) {
     if(req.body.location){
         query['address.city'] =  new RegExp(req.body.location, 'i');
     }
-    Restaurants.find(query,function(err,results){
+    if(req.body.menuName){
+        query['menuDetails.dishName'] =  new RegExp(req.body.menuName, 'i');
+    }
 
+    Restaurants.find(query,function(err,results){
             if(results !== null) {
                 res.json({result : results,status : true});
             }else{
@@ -56,5 +60,48 @@ function  searchRestaurants(req,res) {
     })
 }
 
+
+function menuAction(req,res){
+    var result = {
+        status : false
+    };
+    if(!req.body.restaurantID){
+        res.json(result);
+    }
+    var query = {
+        _id : req.body.restaurantID
+    };
+
+        Restaurants.findOne(query,function(err,results){
+            if(results){
+                if(req.body.action == 'ADD') {
+                    var newMenu = {
+                        dishName: req.body.dishName,
+                        MRP: req.body.MRP,
+                        description: req.body.description
+                    };
+                    if(results.menuDetails == null) {
+                        results.menuDetails = [];
+                    }
+                    results.menuDetails.push(newMenu);
+
+                }else if(req.body.action == 'DELETE'){
+                    var index = _.findIndex(results.menuDetails, {dishName: req.body.dishName});
+                    if (index > -1) {
+                        results.menuDetails.splice(index, 1);
+                    }
+                }
+                results.save();
+                result.response = results;
+                result.status = true;
+                res.json(result);
+            }else{
+                res.json(result);
+            }
+
+        });
+}
+
 module.exports.entityRestaurantsAction = entityRestaurantsAction;
 module.exports.searchRestaurants = searchRestaurants;
+module.exports.menuAction = menuAction;

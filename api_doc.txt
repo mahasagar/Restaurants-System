@@ -85,7 +85,7 @@ METHOD : POST
 {
 	"name" : "sagar",
 	"location" : "Bangalore",
-	"cuisines" : ""
+	"menuName" : "vada"
 }
 
 //search Table *******************************************
@@ -132,4 +132,31 @@ Method : POST
 	"dishName" :  "vada pav",
     "MRP" : "20",
     "description" :  "welcome"
+    "action" : "ADD"
+}
+
+
+//Place Order***************************
+http://localhost:8000/api/ordersAction
+Method : POST
+
+{
+    "orderStatus": "NEW",
+    "orderDetails" : {
+      "from" : {
+          "userName" : "sagar"
+      },
+      "to" : {
+          "restaurantID" : "59b6cdafc584b82305935fd5",
+          "restaurantName" : "Sagar Restro",
+          "tableNo" :  "A1"
+      }
+    },
+    "items": [{
+        "item" : "vada pav",
+        "MRP" : "20",
+        "quantity" :  2,
+        "totalPricePerItem": 40
+    }],
+    "action" : "NEW"
 }

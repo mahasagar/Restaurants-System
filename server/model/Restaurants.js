@@ -25,6 +25,11 @@ var schema = new mongoose.Schema({
         close :{type: String}
     },
     images : [ {type: String}],
+    menuDetails : [{
+        dishName : {type: String},
+        MRP : {type: String},
+        description :  {type: String}
+    }],
     ownerId : {type:  mongoose.Schema.Types.ObjectId},
     ownerName : {type: String},
     updatedAt : {type: Date},

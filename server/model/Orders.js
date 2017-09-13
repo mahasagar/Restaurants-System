@@ -7,14 +7,14 @@ var ObjectId = require('mongoose').Types.ObjectId;
 // Schema
 var schema = new mongoose.Schema({
     orderId : {type: String},
-    orderType: {type: String},
+    orderStatus: {type: String,enum : ['NEW','IN_PROGRESS','COMPLETED','CANCEL','PAID']},
     orderDetails : {
       from : {
-          userId : {type: ObjectId},
+          userId : {type: mongoose.Schema.Types.ObjectId},
           userName : {type: String}
       },
       to : {
-          restaurantID : {type: ObjectId},
+          restaurantID : {type: mongoose.Schema.Types.ObjectId},
           restaurantName : {type: String},
           tableNo :  {type: String}
       }

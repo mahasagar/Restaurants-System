@@ -33,13 +33,6 @@ app.use(allowCrossDomain);
 app.get('/',function(req,res){
     res.sendfile(__dirname+'/client/index.html');
 });
-app.param('username', function(req,res, next, id){
-    //do something with id
-    //store id or other info in req object
-    //call next when done
-    console.log('username ',req);
-    next();
-});
 
 
 app.post('/api/registerUser',controllers.userAPI.createUser);
@@ -47,16 +40,17 @@ app.post('/api/login',controllers.userAPI.loginUser);
 
 app.post('/api/entityRestaurantsAction',controllers.restaurantsAPI.entityRestaurantsAction);
 app.post('/api/searchRestaurants',controllers.restaurantsAPI.searchRestaurants);
+app.post('/api/menuAction',controllers.restaurantsAPI.menuAction);
 
 app.post('/api/tableActions',controllers.tablesAPI.tableActions);
 app.post('/api/bookingTable',controllers.tablesAPI.bookingTable);
 app.post('/api/searchTable',controllers.tablesAPI.searchTable);
 app.post('/api/bookingDetails',controllers.tablesAPI.bookingDetails);
 
+app.post('/api/ordersAction',controllers.ordersAPI.ordersAction);
 
 app.post('/api/writeReview',controllers.reviewsAPI.writeReview);
 
-app.post('/api/menuAction',controllers.menuAPI.menuAction);
 
 
 
