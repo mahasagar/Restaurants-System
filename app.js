@@ -30,32 +30,15 @@ var allowCrossDomain = function(req, res, next) {
 };
 app.use(allowCrossDomain);
 
-app.get('/',function(req,res){
+var router = express.Router();
+var routes = require('./server/routes');
+
+router.get('/', function(req, resp) {
     res.sendfile(__dirname+'/client/index.html');
 });
 
-
-app.post('/api/registerUser',controllers.userAPI.createUser);
-app.post('/api/login',controllers.userAPI.loginUser);
-
-app.post('/api/entityRestaurantsAction',controllers.restaurantsAPI.entityRestaurantsAction);
-app.post('/api/searchRestaurants',controllers.restaurantsAPI.searchRestaurants);
-app.post('/api/menuAction',controllers.restaurantsAPI.menuAction);
-
-app.post('/api/tableActions',controllers.tablesAPI.tableActions);
-app.post('/api/bookingTable',controllers.tablesAPI.bookingTable);
-app.post('/api/searchTable',controllers.tablesAPI.searchTable);
-app.post('/api/bookingDetails',controllers.tablesAPI.bookingDetails);
-
-app.post('/api/ordersAction',controllers.ordersAPI.ordersAction);
-
-app.post('/api/writeReview',controllers.reviewsAPI.writeReview);
-
-
-
-
-
-
+routes.register(router);
+app.use('/api', router);
 
 mongoose.connect('mongodb://'+config.db.mongo.host+':'+config.db.mongo.port+'/'+config.db.mongo.db);
 app.listen(8000, function () {
